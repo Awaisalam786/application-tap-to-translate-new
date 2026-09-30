@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdfrx/pdfrx.dart';
 
 import '../../data/pdf_repository.dart';
+import 'package:tap_to_translate/core/coordinates/coordinate_mapper.dart';
 import 'package:tap_to_translate/core/models/selection_result.dart';
 import 'package:tap_to_translate/features/translation/presentation/controllers/translation_controller.dart';
 import '../controllers/reader_controller.dart';
@@ -39,14 +40,35 @@ class _PdfViewerWidgetState extends ConsumerState<PdfViewerWidget> {
 
   void _onViewerControllerUpdate() {
     if (!mounted || !widget.controller.isReady) return;
+    final pageNum = widget.controller.pageNumber ?? 1;
     final notifier = ref.read(readerControllerProvider.notifier);
-    notifier.setPage(widget.controller.pageNumber ?? 1);
+    notifier.setPage(pageNum);
     notifier.setZoom(widget.controller.currentZoom);
+    final doc = widget.controller.document;
+    if (doc != null && pageNum >= 1 && pageNum <= doc.pages.length) {
+      notifier.ensurePageGeometryLoaded(doc.pages[pageNum - 1]);
+    }
   }
 
   void _handleTapOffset(Offset localPosition) {
     debugPrint('[TAP_PIPELINE] >>> START TAP RESOLUTION PIPELINE >>>');
     final notifier = ref.read(readerControllerProvider.notifier);
+
+    // Lazily load geometry for the tapped page if not yet loaded
+    final hit = const PdfrxCoordinateMapper().screenToPage(
+      localScreenOffset: localPosition,
+      context: context,
+      controller: widget.controller,
+    );
+    if (hit != null) {
+      final doc = widget.controller.document;
+      if (doc != null &&
+          hit.page.pageNumber >= 1 &&
+          hit.page.pageNumber <= doc.pages.length) {
+        notifier.ensurePageGeometryLoaded(doc.pages[hit.page.pageNumber - 1]);
+      }
+    }
+
     final result = notifier.handleTap(
       localScreenOffset: localPosition,
       context: context,
@@ -127,14 +149,26 @@ class _PdfViewerWidgetState extends ConsumerState<PdfViewerWidget> {
         final notifier = ref.read(readerControllerProvider.notifier);
         notifier.onDocumentReady(document);
 
-        // Preload geometries for all pages
+        // Preload active page immediately for fast interactive tap
+        final activePageNum = controller.pageNumber ?? 1;
+        if (activePageNum >= 1 && activePageNum <= document.pages.length) {
+          notifier.ensurePageGeometryLoaded(document.pages[activePageNum - 1]);
+        }
+        // Preload remaining pages ONLY if digital (vector glyph stream); keep scanned OCR strictly lazy
         for (final page in document.pages) {
-          notifier.ensurePageGeometryLoaded(page);
+          if (page.pageNumber != activePageNum) {
+            notifier.ensurePageGeometryLoaded(page, onlyIfDigital: true);
+          }
         }
       },
       onPageChanged: (pageNumber) {
         if (pageNumber != null) {
-          ref.read(readerControllerProvider.notifier).setPage(pageNumber);
+          final notifier = ref.read(readerControllerProvider.notifier);
+          notifier.setPage(pageNumber);
+          final doc = widget.controller.document;
+          if (doc != null && pageNumber >= 1 && pageNumber <= doc.pages.length) {
+            notifier.ensurePageGeometryLoaded(doc.pages[pageNumber - 1]);
+          }
         }
       },
       onGeneralTap: (context, controller, details) {

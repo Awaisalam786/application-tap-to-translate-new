@@ -126,18 +126,73 @@ def generate_scanned_pdf(output_pdf_path: str, output_png_path: str):
 
     # Footer separator & footnote
     draw.line([(100, 1620), (width - 100, 1620)], fill=(200, 205, 210), width=1)
-    draw.text((100, 1635), "Dokument für OCR-Validierung • Phase 8B Hardwaretest • Tap-to-Translate", fill=(120, 120, 120), font=small_font)
-    draw.text((width - 150, 1635), "Seite 1 von 1", fill=(120, 120, 120), font=small_font)
+    draw.text((100, 1635), "Dokument für OCR-Validierung • Phase 9 Hardwaretest • Tap-to-Translate", fill=(120, 120, 120), font=small_font)
+    draw.text((width - 150, 1635), "Seite 1 von 2", fill=(120, 120, 120), font=small_font)
 
-    # Save as PNG
+    # 3. PAGE 2: Single-column dense academic scan with blurred stress test sample
+    img2 = Image.new('RGB', (width, height), color=(255, 255, 255))
+    draw2 = ImageDraw.Draw(img2)
+
+    y2 = 90
+    draw2.text((100, y2), "Vertiefende Studien: Sprachphilosophie & Empirie", fill=(20, 30, 60), font=title_font)
+    y2 += 55
+    draw2.text((100, y2), "Wissenschaftliche Abhandlung und methodische Analyse deutscher Fachtexte", fill=(70, 70, 80), font=subtitle_font)
+    y2 += 40
+    draw2.line([(100, y2), (width - 100, y2)], fill=(180, 185, 195), width=2)
+    y2 += 50
+
+    draw2.text((100, y2), "3. Methodische Grundlagen und Textanalyse", fill=(30, 40, 70), font=heading_font)
+    y2 += 40
+
+    page2_paragraphs = [
+        "Die linguistische Struktur der deutschen Gegenwartssprache erlaubt hochgradig differenzierte Begriffsbestimmungen in akademischen und wissenschaftlichen Abhandlungen.",
+        "Insbesondere in den Natur- und Ingenieurwissenschaften entstehen kontinuierlich präzise Komposita, die komplexe technische Sachverhalte eindeutig abbilden.",
+        "In der theoretischen Informatik und Computerlinguistik nimmt die automatisierte Sprachverarbeitung eine zentrale Schlüsselstellung für moderne Informationssysteme ein.",
+        "Moderne Systeme zur optischen Zeichenerkennung (OCR) müssen dabei höchste Anforderungen an Robustheit, Rauschunterdrückung und geometrische Präzision erfüllen."
+    ]
+
+    for p in page2_paragraphs:
+        words = p.split(' ')
+        line = ""
+        for w in words:
+            test_line = line + (" " if line else "") + w
+            bbox = draw2.textbbox((100, y2), test_line, font=body_font)
+            if (bbox[2] - bbox[0]) > 1040:
+                draw2.text((100, y2), line, fill=(35, 35, 35), font=body_font)
+                y2 += 28
+                line = w
+            else:
+                line = test_line
+        if line:
+            draw2.text((100, y2), line, fill=(35, 35, 35), font=body_font)
+            y2 += 42
+
+    # Intentional low-quality blurred scan section to test low-confidence OCR handling
+    y2 += 60
+    draw2.text((100, y2), "Stresstest für unscharfe Zeichenerkennung:", fill=(100, 100, 100), font=heading_font)
+    y2 += 45
+
+    from PIL import ImageFilter
+    blur_box = Image.new('RGB', (320, 60), color=(255, 255, 255))
+    blur_draw = ImageDraw.Draw(blur_box)
+    blur_draw.text((10, 10), "UnleserlichText", fill=(100, 100, 100), font=body_font)
+    blur_box = blur_box.filter(ImageFilter.GaussianBlur(radius=3.5))
+    img2.paste(blur_box, (100, y2))
+
+    # Page 2 Footer
+    draw2.line([(100, 1620), (width - 100, 1620)], fill=(200, 205, 210), width=1)
+    draw2.text((100, 1635), "Dokument für OCR-Validierung • Phase 9 Hardwaretest • Tap-to-Translate", fill=(120, 120, 120), font=small_font)
+    draw2.text((width - 150, 1635), "Seite 2 von 2", fill=(120, 120, 120), font=small_font)
+
+    # Save as PNG (page 1)
     os.makedirs(os.path.dirname(output_png_path), exist_ok=True)
     img.save(output_png_path, "PNG")
     print(f"Saved PNG to {output_png_path}")
 
-    # Save as PDF (image-only scanned PDF)
+    # Save as PDF (image-only scanned 2-page PDF)
     os.makedirs(os.path.dirname(output_pdf_path), exist_ok=True)
-    img.save(output_pdf_path, "PDF", resolution=150.0)
-    print(f"Saved scanned PDF to {output_pdf_path}")
+    img.save(output_pdf_path, "PDF", resolution=150.0, save_all=True, append_images=[img2])
+    print(f"Saved scanned 2-page PDF to {output_pdf_path}")
 
 if __name__ == "__main__":
     generate_scanned_pdf(

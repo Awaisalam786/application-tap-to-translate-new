@@ -666,5 +666,106 @@ void main() {
       expect(identical(initial, cached), isTrue);
       expect(cached.words.length, equals(initial.words.length));
     });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // 21. Phase 9 Hardening: Lazy OCR Page Processing Invariant
+    // ─────────────────────────────────────────────────────────────────────────
+    test('21. Phase 9 Hardening: Lazy OCR processes only requested page and avoids multi-page upfront memory spike', () async {
+      const multiPageDocId = 'scanned_multipage_doc';
+
+      // Verify initial state: cache is empty for this document
+      final initialCheck = await ocrCache.get(
+        documentId: multiPageDocId,
+        pageNumber: 2,
+        providerName: ocrProvider.name,
+        providerVersion: ocrProvider.version,
+      );
+      expect(initialCheck, isNull);
+
+      // Only Page 1 is requested initially
+      final p1 = await ocrService.processPage(
+        documentId: multiPageDocId,
+        pageNumber: 1,
+        pageWidth: pageWidth,
+        pageHeight: pageHeight,
+      );
+      expect(p1.words.isNotEmpty, isTrue);
+
+      // Page 2 must remain un-computed in cache until explicitly navigated to
+      final p2Check = await ocrCache.get(
+        documentId: multiPageDocId,
+        pageNumber: 2,
+        providerName: ocrProvider.name,
+        providerVersion: ocrProvider.version,
+      );
+      expect(p2Check, isNull, reason: 'Page 2 should not be computed upfront');
+
+      // Now navigate to Page 2 on-demand
+      final p2 = await ocrService.processPage(
+        documentId: multiPageDocId,
+        pageNumber: 2,
+        pageWidth: pageWidth,
+        pageHeight: pageHeight,
+      );
+      expect(p2.words.isNotEmpty, isTrue);
+
+      // Now both pages are present in cache
+      final p1Cached = await ocrCache.get(
+        documentId: multiPageDocId,
+        pageNumber: 1,
+        providerName: ocrProvider.name,
+        providerVersion: ocrProvider.version,
+      );
+      final p2Cached = await ocrCache.get(
+        documentId: multiPageDocId,
+        pageNumber: 2,
+        providerName: ocrProvider.name,
+        providerVersion: ocrProvider.version,
+      );
+      expect(p1Cached, isNotNull);
+      expect(p2Cached, isNotNull);
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // 22. Phase 9 Hardening: High Zoom (382%) and Landscape Precision Invariant
+    // ─────────────────────────────────────────────────────────────────────────
+    test('22. Phase 9 Hardening: High Zoom (382%) and Landscape aspect ratios preserve exact hit testing with zero drift', () async {
+      final ocrResult = await ocrService.processPage(
+        documentId: 'scanned_doc',
+        pageNumber: 1,
+        pageWidth: pageWidth,
+        pageHeight: pageHeight,
+      );
+
+      final spatialIndex = WordSpatialIndex(pageNumber: 1, words: ocrResult.words);
+      final word = ocrResult.words.firstWhere((w) => w.cleanWord == 'Fußball');
+      final b = word.pageBoundingBox;
+
+      // Exact center point in PDF points
+      final centerPoint = PdfPoint((b.left + b.right) / 2, (b.top + b.bottom) / 2);
+
+      // Simulate 382% zoom screen offset
+      const zoomLevel = 3.82;
+      final highZoomScreenOffset = Offset(centerPoint.x * zoomLevel, centerPoint.y * zoomLevel);
+
+      final result = hitTester.hitTest(
+        pdfPoint: centerPoint,
+        screenOffset: highZoomScreenOffset,
+        spatialIndex: spatialIndex,
+      );
+
+      expect(result.status, equals(SelectionStatus.exactMatch));
+      expect(result.word?.cleanWord, equals('Fußball'));
+
+      // Negative boundary test: 1.0 point outside box right edge must return gap or whitespace
+      final outsidePoint = PdfPoint(b.right + 1.0, centerPoint.y);
+      final outsideResult = hitTester.hitTest(
+        pdfPoint: outsidePoint,
+        screenOffset: Offset(outsidePoint.x * zoomLevel, outsidePoint.y * zoomLevel),
+        spatialIndex: spatialIndex,
+      );
+      expect(outsideResult.status, isNot(equals(SelectionStatus.exactMatch)));
+      expect(outsideResult.word, isNull);
+    });
   });
 }

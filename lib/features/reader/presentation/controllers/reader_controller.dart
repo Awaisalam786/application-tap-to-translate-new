@@ -119,7 +119,7 @@ class ReaderController extends StateNotifier<ReaderState> {
   ///
   /// Handles both Digital PDFs (vector glyph streams) and Scanned PDFs (empty text streams,
   /// delegating to lazy OCR processing).
-  Future<void> ensurePageGeometryLoaded(PdfPage page) async {
+  Future<void> ensurePageGeometryLoaded(PdfPage page, {bool onlyIfDigital = false}) async {
     final pageNum = page.pageNumber;
     if (state.pageGeometries.containsKey(pageNum)) return;
 
@@ -133,7 +133,7 @@ class ReaderController extends StateNotifier<ReaderState> {
       words = wordReconstructor.reconstructWords(structText);
       fullText = structText.fullText;
       charRects = structText.charRects;
-    } else if (ocrService != null) {
+    } else if (!onlyIfDigital && ocrService != null) {
       // 2. Scanned PDF: lazy OCR processing with offline cache
       String? imagePath;
       try {
@@ -180,6 +180,11 @@ class ReaderController extends StateNotifier<ReaderState> {
       fullText = ocrResult.fullText;
       charRects = words.expand((w) => w.charRects).toList();
     } else {
+      if (onlyIfDigital) {
+        // Do not cache empty geometry for scanned pages during background preload;
+        // leave it unloaded so lazy OCR processes it on-demand when viewed.
+        return;
+      }
       words = const [];
       fullText = '';
       charRects = const [];
