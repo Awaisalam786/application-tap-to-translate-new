@@ -9,4 +9,9 @@ abstract class GermanWordNormalizer {
   /// Generates prioritized candidate lemmas for lexicon lookup (e.g. Capitalized Noun,
   /// lowercase verb/adjective).
   List<String> generateLookupCandidates(String rawWord);
+
+  /// Returns a canonical, lowercase, punctuation-free lookup key for dictionary and cache lookups.
+  /// Preserves umlauts (ä, ö, ü) and Eszett (ß) while ensuring "Mädchen", "mädchen",
+  /// "MÄDCHEN", "Mädchen,", and "Mädchen." all resolve to the same canonical key.
+  String toCanonicalLookupKey(String rawWord);
 }

@@ -34,7 +34,9 @@ class TranslationResolver implements TranslationRepository {
   final GermanWordNormalizer normalizer;
   final HistoryRepository? historyRepository;
 
-  const TranslationResolver({
+  final Map<String, Future<TranslationResult>> _inFlightTranslations = {};
+
+  TranslationResolver({
     required this.lexicon,
     required this.cache,
     this.supabaseLexicon,
@@ -59,13 +61,37 @@ class TranslationResolver implements TranslationRepository {
       pageNumber: query.pageNumber,
     );
 
+    // Canonical key for in-flight deduplication across casing and punctuation
+    final canonicalKey = normalizedQuery.cacheKey;
+
+    // In-flight request coalescing: deduplicate concurrent identical requests
+    final inFlight = _inFlightTranslations[canonicalKey];
+    if (inFlight != null) {
+      final res = await inFlight;
+      return res.copyWith(query: normalizedQuery);
+    }
+
+    final future = _executeResolution(normalizedQuery, candidates);
+    _inFlightTranslations[canonicalKey] = future;
+    try {
+      final result = await future;
+      return result;
+    } finally {
+      _inFlightTranslations.remove(canonicalKey);
+    }
+  }
+
+  Future<TranslationResult> _executeResolution(
+    TranslationQuery normalizedQuery,
+    List<String> candidates,
+  ) async {
     // ─────────────────────────────────────────────────────────────────────────
     // TIER 1: Local German Lexicon (Offline Primary Source)
     // ─────────────────────────────────────────────────────────────────────────
     for (final candidate in candidates) {
       final lexiconHit = await lexicon.lookup(
         normalizedWord: candidate,
-        targetLanguage: query.targetLanguage,
+        targetLanguage: normalizedQuery.targetLanguage,
         query: normalizedQuery,
       );
 
@@ -96,7 +122,7 @@ class TranslationResolver implements TranslationRepository {
         for (final candidate in candidates) {
           final supabaseHit = await supabase.lookup(
             normalizedWord: candidate,
-            targetLanguage: query.targetLanguage,
+            targetLanguage: normalizedQuery.targetLanguage,
             query: normalizedQuery,
           );
 

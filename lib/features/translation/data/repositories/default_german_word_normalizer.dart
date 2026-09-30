@@ -55,4 +55,10 @@ class DefaultGermanWordNormalizer implements GermanWordNormalizer {
 
     return candidates.toList();
   }
+
+  @override
+  String toCanonicalLookupKey(String rawWord) {
+    final cleaned = normalize(rawWord);
+    return cleaned.toLowerCase().trim();
+  }
 }

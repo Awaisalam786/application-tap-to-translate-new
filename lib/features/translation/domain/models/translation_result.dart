@@ -101,20 +101,38 @@ class TranslationResult {
   bool get isError => status == TranslationStatus.error;
   bool get isLoading => status == TranslationStatus.loading;
 
+  /// Returns a copy of this result with the specified fields replaced.
+  TranslationResult copyWith({
+    TranslationQuery? query,
+    TranslationStatus? status,
+    TranslationSource? source,
+    String? primaryTranslation,
+    List<String>? secondaryTranslations,
+    String? partOfSpeech,
+    String? gender,
+    String? exampleSentenceDe,
+    String? exampleSentenceTranslation,
+    String? errorMessage,
+    DateTime? resolvedAt,
+  }) {
+    return TranslationResult(
+      query: query ?? this.query,
+      status: status ?? this.status,
+      source: source ?? this.source,
+      primaryTranslation: primaryTranslation ?? this.primaryTranslation,
+      secondaryTranslations: secondaryTranslations ?? this.secondaryTranslations,
+      partOfSpeech: partOfSpeech ?? this.partOfSpeech,
+      gender: gender ?? this.gender,
+      exampleSentenceDe: exampleSentenceDe ?? this.exampleSentenceDe,
+      exampleSentenceTranslation:
+          exampleSentenceTranslation ?? this.exampleSentenceTranslation,
+      errorMessage: errorMessage ?? this.errorMessage,
+      resolvedAt: resolvedAt ?? this.resolvedAt,
+    );
+  }
+
   /// Returns a copy of this result with a new source (e.g. when loaded from cache).
   TranslationResult copyWithSource(TranslationSource newSource) {
-    return TranslationResult(
-      query: query,
-      status: status,
-      source: newSource,
-      primaryTranslation: primaryTranslation,
-      secondaryTranslations: secondaryTranslations,
-      partOfSpeech: partOfSpeech,
-      gender: gender,
-      exampleSentenceDe: exampleSentenceDe,
-      exampleSentenceTranslation: exampleSentenceTranslation,
-      errorMessage: errorMessage,
-      resolvedAt: resolvedAt,
-    );
+    return copyWith(source: newSource);
   }
 }
