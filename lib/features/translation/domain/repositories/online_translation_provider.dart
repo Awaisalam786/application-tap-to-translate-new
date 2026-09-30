@@ -10,6 +10,9 @@ import '../models/translation_result.dart';
 /// 2. If the user is offline, or if no online provider is configured, the application
 ///    operates completely autonomously using the local offline lexicon.
 abstract class OnlineTranslationProvider {
+  /// Unique identifier of the provider (e.g. 'mymemory', 'libretranslate').
+  String get name => 'online';
+
   /// Whether the online provider is enabled, configured, and network-reachable.
   bool get isAvailable;
 

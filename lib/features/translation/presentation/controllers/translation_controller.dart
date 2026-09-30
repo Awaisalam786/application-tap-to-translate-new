@@ -21,6 +21,11 @@ import '../../domain/repositories/translation_cache.dart';
 import '../../domain/repositories/user_words_repository.dart';
 import '../../domain/usecases/translation_resolver.dart';
 
+import '../../data/repositories/http_supabase_lexicon_repository.dart';
+import '../../data/repositories/mymemory_online_translation_provider.dart';
+import '../../domain/models/supabase_lexicon_config.dart';
+import '../../domain/repositories/supabase_lexicon_repository.dart';
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Dependency Providers
 // ─────────────────────────────────────────────────────────────────────────────
@@ -38,7 +43,22 @@ final translationCacheProvider = Provider<TranslationCache>((ref) {
 });
 
 final onlineTranslationProvider = Provider<OnlineTranslationProvider?>((ref) {
-  return null; // By default offline; core app never depends on online API
+  return const MyMemoryOnlineTranslationProvider();
+});
+
+final supabaseLexiconRepositoryProvider = Provider<SupabaseLexiconRepository?>((ref) {
+  const url = String.fromEnvironment('SUPABASE_URL');
+  const anonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
+
+  if (url.isNotEmpty && anonKey.isNotEmpty) {
+    return HttpSupabaseLexiconRepository(
+      config: const SupabaseLexiconConfig(
+        url: url,
+        anonKey: anonKey,
+      ),
+    );
+  }
+  return null; // Graceful offline/local-first default when unconfigured
 });
 
 final userWordsRepositoryProvider = Provider<UserWordsRepository>((ref) {
@@ -53,6 +73,7 @@ final translationResolverProvider = Provider<TranslationResolver>((ref) {
   return TranslationResolver(
     lexicon: ref.watch(germanLexiconRepositoryProvider),
     cache: ref.watch(translationCacheProvider),
+    supabaseLexicon: ref.watch(supabaseLexiconRepositoryProvider),
     onlineProvider: ref.watch(onlineTranslationProvider),
     normalizer: ref.watch(germanWordNormalizerProvider),
     historyRepository: ref.watch(historyRepositoryProvider),

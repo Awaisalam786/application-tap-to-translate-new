@@ -27,6 +27,9 @@ class MockOnlineTranslationProvider implements OnlineTranslationProvider {
   });
 
   @override
+  String get name => 'mock';
+
+  @override
   bool get isAvailable => isOnlineAvailable;
 
   @override

@@ -372,6 +372,12 @@ class TranslationPopup extends ConsumerWidget {
           label = 'CACHE';
           icon = Icons.cached;
           break;
+        case TranslationSource.supabaseCentralLexicon:
+          bg = Colors.teal.shade50;
+          fg = Colors.teal.shade900;
+          label = 'SUPABASE LEXIKON';
+          icon = Icons.cloud_done_outlined;
+          break;
         case TranslationSource.onlineFallback:
           bg = Colors.purple.shade50;
           fg = Colors.purple.shade900;

@@ -1,4 +1,6 @@
-// lib/features/translation/domain/usecases/translation_resolver.dart
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 
 import '../models/history_entry.dart';
 import '../models/translation_query.dart';
@@ -8,24 +10,26 @@ import '../repositories/german_lexicon_repository.dart';
 import '../repositories/german_word_normalizer.dart';
 import '../repositories/history_repository.dart';
 import '../repositories/online_translation_provider.dart';
+import '../repositories/supabase_lexicon_repository.dart';
 import '../repositories/translation_cache.dart';
 import '../repositories/translation_repository.dart';
 
 /// Production implementation of [TranslationRepository].
 ///
-/// Implements the strict local-first resolution hierarchy:
-/// 1. Local German Lexicon
+/// Implements the strict 5-tier resolution hierarchy:
+/// 1. Local German Lexicon (Deterministic Offline Source)
 ///    ↓ (if miss)
-/// 2. Local Translation Cache
+/// 2. Local Translation Cache (On-Device Cache)
 ///    ↓ (if miss)
-/// 3. Optional Online Provider
-///    ↓ (if hit in any tier)
-/// 4. Store in Local Translation Cache
-///    ↓ (if all tiers miss)
-/// Return explicit NOT_FOUND state (NEVER invent translations).
+/// 3. Supabase Central Lexicon (Shared Cloud Lexicon)
+///    ↓ (if miss)
+/// 4. Online Translation Provider (Network Fallback)
+///    ↓ (if hit in Tier 4: asynchronously auto-cached to Supabase & local cache)
+/// 5. Explicit NOT_FOUND State (NEVER invent translations).
 class TranslationResolver implements TranslationRepository {
   final GermanLexiconRepository lexicon;
   final TranslationCache cache;
+  final SupabaseLexiconRepository? supabaseLexicon;
   final OnlineTranslationProvider? onlineProvider;
   final GermanWordNormalizer normalizer;
   final HistoryRepository? historyRepository;
@@ -33,6 +37,7 @@ class TranslationResolver implements TranslationRepository {
   const TranslationResolver({
     required this.lexicon,
     required this.cache,
+    this.supabaseLexicon,
     this.onlineProvider,
     required this.normalizer,
     this.historyRepository,
@@ -83,25 +88,85 @@ class TranslationResolver implements TranslationRepository {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // TIER 3: Optional Online Provider (Network Fallback)
+    // TIER 3: Supabase Central Lexicon (Shared Cloud Lexicon)
+    // ─────────────────────────────────────────────────────────────────────────
+    final supabase = supabaseLexicon;
+    if (supabase != null && supabase.isAvailable) {
+      try {
+        for (final candidate in candidates) {
+          final supabaseHit = await supabase.lookup(
+            normalizedWord: candidate,
+            targetLanguage: query.targetLanguage,
+            query: normalizedQuery,
+          );
+
+          if (supabaseHit != null && supabaseHit.isSuccess) {
+            // Cache the central cloud result into local on-device cache for instant subsequent hits
+            await cache.put(supabaseHit);
+            await _recordHistory(supabaseHit);
+            return supabaseHit;
+          }
+        }
+      } catch (e) {
+        debugPrint('[TRANSLATION_RESOLVER] Supabase lookup error (falling through): $e');
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // TIER 4: Online Translation Provider (Network Fallback)
     // ─────────────────────────────────────────────────────────────────────────
     final provider = onlineProvider;
     if (provider != null && provider.isAvailable) {
       try {
         final onlineHit = await provider.translate(normalizedQuery);
         if (onlineHit != null && onlineHit.isSuccess) {
-          // Store online result into local cache
+          // 1. Immediately cache in local cache for subsequent instant taps
           await cache.put(onlineHit);
           await _recordHistory(onlineHit);
+
+          // 2. Asynchronously save to Supabase central lexicon (do NOT make user wait)
+          if (supabase != null && supabase.isAvailable) {
+            unawaited(
+              supabase.saveTranslation(
+                result: onlineHit,
+                providerName: provider.name,
+              ).catchError((err) {
+                debugPrint('[TRANSLATION_RESOLVER] Asynchronous Supabase save failed: $err');
+                return false;
+              }),
+            );
+
+            unawaited(
+              supabase.logRequest(
+                query: normalizedQuery,
+                providerName: provider.name,
+                status: 'SUCCESS',
+                result: onlineHit.primaryTranslation,
+              ).catchError((err) {
+                debugPrint('[TRANSLATION_RESOLVER] Asynchronous Supabase logRequest failed: $err');
+              }),
+            );
+          }
+
+          // Return immediately to user without waiting for cloud write
           return onlineHit;
+        } else if (supabase != null && supabase.isAvailable) {
+          // Log failed/empty online attempt
+          unawaited(
+            supabase.logRequest(
+              query: normalizedQuery,
+              providerName: provider.name,
+              status: 'NOT_FOUND',
+            ).catchError((_) {}),
+          );
         }
-      } catch (_) {
-        // Network or provider error; gracefully fall through to notFound
+      } catch (e) {
+        debugPrint('[TRANSLATION_RESOLVER] Online provider error (falling through): $e');
       }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // TIER 4: Explicit NOT_FOUND State
+    // TIER 5: Explicit NOT_FOUND State
     // (Invariant: Never silently invent or hallucinate translations)
     // ─────────────────────────────────────────────────────────────────────────
     final notFoundResult = TranslationResult.notFound(query: normalizedQuery);

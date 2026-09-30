@@ -8,7 +8,10 @@ enum TranslationSource {
   /// Local on-device persistent or in-memory cache.
   cache,
 
-  /// Optional network fallback provider (e.g. libretranslate/wiktionary/external).
+  /// Central Supabase lexicon shared across all users.
+  supabaseCentralLexicon,
+
+  /// Optional network fallback provider (e.g. libretranslate/mymemory/external).
   onlineFallback,
 
   /// No translation provider had a match.
@@ -20,6 +23,8 @@ enum TranslationSource {
         return 'Lokales Lexikon (Offline)';
       case TranslationSource.cache:
         return 'Lokaler Cache';
+      case TranslationSource.supabaseCentralLexicon:
+        return 'Zentrales Lexikon (Supabase)';
       case TranslationSource.onlineFallback:
         return 'Online-Fallback';
       case TranslationSource.none:
