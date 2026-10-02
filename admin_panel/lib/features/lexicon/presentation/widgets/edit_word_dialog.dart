@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../auth/domain/admin_user_model.dart';
 import '../../domain/models/lexicon_filter.dart';
 import '../../domain/models/master_lexicon_entry.dart';
+import '../../domain/services/pos_rules_validator.dart';
 import '../controllers/lexicon_controller.dart';
 
 class EditWordDialog extends StatefulWidget {
@@ -82,6 +83,15 @@ class _EditWordDialogState extends State<EditWordDialog> {
       updatedAt: DateTime.now(),
     );
 
+    final validation = PosRulesValidator.validateEntry(updated);
+    if (!validation.isValid) {
+      setState(() {
+        _isSubmitting = false;
+        _formError = validation.errors.join(' ');
+      });
+      return;
+    }
+
     final success = await widget.controller.updateEntry(updated);
 
     if (!mounted) return;
@@ -143,7 +153,7 @@ class _EditWordDialogState extends State<EditWordDialog> {
 
     final allowedStatuses = isEditor
         ? ['draft', 'review']
-        : ['draft', 'review', 'verified', 'rejected'];
+        : ['draft', 'review', 'verified', 'rejected', 'archived'];
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -224,8 +234,27 @@ class _EditWordDialogState extends State<EditWordDialog> {
                     decoration: const InputDecoration(
                       labelText: 'German Word (Lemma) *',
                     ),
-                    validator: (v) =>
-                        v == null || v.trim().isEmpty ? 'Required' : null,
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) return 'Required';
+                      if (_partOfSpeech == 'noun') {
+                        final res = PosRulesValidator.validateNoun(
+                          lemma: v,
+                          article: _gender,
+                          pluralForm: _pluralController.text,
+                        );
+                        if (!res.isValid) return res.errors.first;
+                      } else if (_partOfSpeech == 'verb') {
+                        final res = PosRulesValidator.validateVerb(lemma: v);
+                        if (!res.isValid) return res.errors.first;
+                      } else if (_partOfSpeech == 'adjective') {
+                        final res = PosRulesValidator.validateAdjective(lemma: v);
+                        if (!res.isValid) return res.errors.first;
+                      } else if (_partOfSpeech == 'adverb') {
+                        final res = PosRulesValidator.validateAdverb(lemma: v);
+                        if (!res.isValid) return res.errors.first;
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 16),
                   Row(

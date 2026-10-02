@@ -50,6 +50,9 @@ class CsvImportRow {
   final String? exampleDe;
   final String? exampleEn;
   final String? exampleUr;
+  final String? topic;
+  final String? provenance;
+  final String? status;
 
   final CsvValidationStatus validationStatus;
   final List<String> validationErrors;
@@ -76,6 +79,9 @@ class CsvImportRow {
     this.exampleDe,
     this.exampleEn,
     this.exampleUr,
+    this.topic,
+    this.provenance,
+    this.status,
     this.validationStatus = CsvValidationStatus.valid,
     this.validationErrors = const [],
     this.validationWarnings = const [],
@@ -104,6 +110,9 @@ class CsvImportRow {
     String? exampleDe,
     String? exampleEn,
     String? exampleUr,
+    String? topic,
+    String? provenance,
+    String? status,
     CsvValidationStatus? validationStatus,
     List<String>? validationErrors,
     List<String>? validationWarnings,
@@ -127,6 +136,9 @@ class CsvImportRow {
       exampleDe: exampleDe ?? this.exampleDe,
       exampleEn: exampleEn ?? this.exampleEn,
       exampleUr: exampleUr ?? this.exampleUr,
+      topic: topic ?? this.topic,
+      provenance: provenance ?? this.provenance,
+      status: status ?? this.status,
       validationStatus: validationStatus ?? this.validationStatus,
       validationErrors: validationErrors ?? this.validationErrors,
       validationWarnings: validationWarnings ?? this.validationWarnings,

@@ -81,15 +81,36 @@ class CsvParser {
     // Examples
     'example_de': 'example_de',
     'example_sentence_de': 'example_de',
+    'example_german': 'example_de',
     'example': 'example_de',
     'beispiel': 'example_de',
     'beispielsatz': 'example_de',
 
     'example_en': 'example_en',
     'example_sentence_en': 'example_en',
+    'example_english': 'example_en',
 
     'example_ur': 'example_ur',
     'example_sentence_ur': 'example_ur',
+    'example_urdu': 'example_ur',
+
+    // Topic / Category
+    'topic': 'topic',
+    'category': 'topic',
+    'kategorie': 'topic',
+    'themenbereich': 'topic',
+
+    // Status
+    'status': 'status',
+
+    // Provenance / Source
+    'source': 'provenance',
+    'provenance': 'provenance',
+    'quelle': 'provenance',
+
+    // Additional aliases
+    'word_type': 'part_of_speech',
+    'normalized_word': 'normalized_lemma',
   };
 
   /// Parses raw CSV string according to RFC 4180

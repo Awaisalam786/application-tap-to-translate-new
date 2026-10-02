@@ -1,5 +1,6 @@
 import 'package:german_lexicon_admin/features/csv_import/domain/models/csv_import_row.dart';
 import 'package:german_lexicon_admin/features/csv_import/domain/services/csv_parser.dart';
+import 'package:german_lexicon_admin/features/lexicon/domain/services/pos_rules_validator.dart';
 
 class CsvValidator {
   static const Set<String> _validPos = {
@@ -78,6 +79,39 @@ class CsvValidator {
       // 4. Plural form
       final plural = fields['plural_form']?.trim();
 
+      // Linguistic POS rules validation (Phase 12C-1)
+      if (lemma.isNotEmpty) {
+        if (pos == 'noun') {
+          final nounCheck = PosRulesValidator.validateNoun(
+            lemma: lemma,
+            article: gender,
+            pluralForm: plural,
+          );
+          if (!nounCheck.isValid) {
+            errors.addAll(nounCheck.errors);
+          }
+          warnings.addAll(nounCheck.warnings);
+        } else if (pos == 'verb') {
+          final verbCheck = PosRulesValidator.validateVerb(lemma: lemma);
+          if (!verbCheck.isValid) {
+            errors.addAll(verbCheck.errors);
+          }
+          warnings.addAll(verbCheck.warnings);
+        } else if (pos == 'adjective') {
+          final adjCheck = PosRulesValidator.validateAdjective(lemma: lemma);
+          if (!adjCheck.isValid) {
+            errors.addAll(adjCheck.errors);
+          }
+          warnings.addAll(adjCheck.warnings);
+        } else if (pos == 'adverb') {
+          final advCheck = PosRulesValidator.validateAdverb(lemma: lemma);
+          if (!advCheck.isValid) {
+            errors.addAll(advCheck.errors);
+          }
+          warnings.addAll(advCheck.warnings);
+        }
+      }
+
       // 5. CEFR level normalization
       final rawCefr = fields['cefr_level']?.trim() ?? '';
       String cefr = 'unclassified';
@@ -109,9 +143,10 @@ class CsvValidator {
         warnings.add('No translation provided for this word.');
       }
 
-      // 7. Senses
+      // 7. Senses & Topic
       final senseDe = fields['sense_de']?.trim();
       final senseEn = fields['sense_en']?.trim();
+      final topic = fields['topic']?.trim();
 
       // 8. Synonyms
       final rawSyn = fields['synonyms']?.trim();
@@ -131,7 +166,20 @@ class CsvValidator {
       final exEn = fields['example_en']?.trim();
       final exUr = fields['example_ur']?.trim();
 
-      // 10. In-file duplicate detection
+      // 10. Status & Provenance
+      final rawStatus = fields['status']?.trim();
+      String? status;
+      if (rawStatus != null && rawStatus.isNotEmpty) {
+        final normStatus = rawStatus.toLowerCase();
+        if (PosRulesValidator.validStatuses.contains(normStatus)) {
+          status = normStatus;
+        } else {
+          warnings.add('Unrecognized status "$rawStatus" will default to import target status.');
+        }
+      }
+      final provenance = fields['provenance']?.trim();
+
+      // 11. In-file duplicate detection
       if (lemma.isNotEmpty) {
         final key = '$normalizedLemma|$pos';
         if (seenLemmas.containsKey(key)) {
@@ -166,6 +214,9 @@ class CsvValidator {
         exampleDe: exDe != null && exDe.isNotEmpty ? exDe : null,
         exampleEn: exEn != null && exEn.isNotEmpty ? exEn : null,
         exampleUr: exUr != null && exUr.isNotEmpty ? exUr : null,
+        topic: topic != null && topic.isNotEmpty ? topic : null,
+        provenance: provenance != null && provenance.isNotEmpty ? provenance : null,
+        status: status,
         validationStatus: validationStatus,
         validationErrors: errors,
         validationWarnings: warnings,

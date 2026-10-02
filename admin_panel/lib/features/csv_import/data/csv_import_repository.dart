@@ -164,7 +164,7 @@ class SupabaseCsvImportRepository implements CsvImportRepository {
             'cefr_level': row.cefrLevel,
             'status': targetStatus,
             'source_type': 'candidate_import',
-            'provenance': 'CSV Import',
+            'provenance': row.provenance ?? 'CSV Import',
           };
           if (createdBy != null) {
             insertPayload['created_by'] = createdBy;
@@ -197,14 +197,16 @@ class SupabaseCsvImportRepository implements CsvImportRepository {
           }
         }
 
-        // Insert sense if provided
-        if (row.senseDe != null && row.senseDe!.isNotEmpty) {
+        // Insert sense if provided or if topic provided
+        if ((row.senseDe != null && row.senseDe!.isNotEmpty) ||
+            (row.topic != null && row.topic!.isNotEmpty)) {
           try {
             await _client.from('lexicon_senses').insert({
               'entry_id': entryId,
               'sense_order': 1,
-              'definition_de': row.senseDe!,
+              'definition_de': row.senseDe ?? (row.topic != null ? '[Topic: ${row.topic}]' : ''),
               'definition_en': row.senseEn,
+              'context_domain': row.topic,
             });
           } catch (_) {
             // Non-fatal if sense order exists

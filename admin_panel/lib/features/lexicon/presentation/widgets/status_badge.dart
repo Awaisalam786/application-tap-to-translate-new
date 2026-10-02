@@ -20,6 +20,8 @@ class StatusBadge extends StatelessWidget {
         return const Color(0xFFF1F5F9); // slate 100
       case 'rejected':
         return const Color(0xFFFEE2E2); // red 100
+      case 'archived':
+        return const Color(0xFFE2E8F0); // slate 200
       default:
         return const Color(0xFFF1F5F9);
     }
@@ -35,6 +37,8 @@ class StatusBadge extends StatelessWidget {
         return const Color(0xFF475569); // slate 600
       case 'rejected':
         return const Color(0xFFB91C1C); // red 700
+      case 'archived':
+        return const Color(0xFF334155); // slate 700
       default:
         return const Color(0xFF475569);
     }

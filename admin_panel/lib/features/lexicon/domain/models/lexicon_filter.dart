@@ -42,6 +42,7 @@ class LexiconFilter {
     'review',
     'verified',
     'rejected',
+    'archived',
   ];
 
   static const List<String> availableCefr = [

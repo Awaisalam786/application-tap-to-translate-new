@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../auth/domain/admin_user_model.dart';
 import '../../domain/models/lexicon_filter.dart';
 import '../../domain/models/master_lexicon_entry.dart';
+import '../../domain/services/pos_rules_validator.dart';
 import '../controllers/lexicon_controller.dart';
 
 class AddWordDialog extends StatefulWidget {
@@ -70,6 +71,15 @@ class _AddWordDialogState extends State<AddWordDialog> {
       updatedAt: DateTime.now(),
     );
 
+    final validation = PosRulesValidator.validateEntry(newEntry);
+    if (!validation.isValid) {
+      setState(() {
+        _isSubmitting = false;
+        _formError = validation.errors.join(' ');
+      });
+      return;
+    }
+
     final success = await widget.controller.createEntry(newEntry);
 
     if (!mounted) return;
@@ -86,10 +96,10 @@ class _AddWordDialogState extends State<AddWordDialog> {
 
   @override
   Widget build(BuildContext context) {
-    // Only reviewers/superadmins can set status directly to 'verified' on creation
+    // Only reviewers/superadmins can set status directly to 'verified' or 'archived' on creation
     final allowedStatuses = widget.userRole == AdminRole.editor
         ? ['draft', 'review']
-        : ['draft', 'review', 'verified', 'rejected'];
+        : ['draft', 'review', 'verified', 'rejected', 'archived'];
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -161,6 +171,23 @@ class _AddWordDialogState extends State<AddWordDialog> {
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
                         return 'German word is required';
+                      }
+                      if (_partOfSpeech == 'noun') {
+                        final res = PosRulesValidator.validateNoun(
+                          lemma: v,
+                          article: _gender,
+                          pluralForm: _pluralController.text,
+                        );
+                        if (!res.isValid) return res.errors.first;
+                      } else if (_partOfSpeech == 'verb') {
+                        final res = PosRulesValidator.validateVerb(lemma: v);
+                        if (!res.isValid) return res.errors.first;
+                      } else if (_partOfSpeech == 'adjective') {
+                        final res = PosRulesValidator.validateAdjective(lemma: v);
+                        if (!res.isValid) return res.errors.first;
+                      } else if (_partOfSpeech == 'adverb') {
+                        final res = PosRulesValidator.validateAdverb(lemma: v);
+                        if (!res.isValid) return res.errors.first;
                       }
                       return null;
                     },
