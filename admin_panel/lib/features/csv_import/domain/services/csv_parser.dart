@@ -66,6 +66,8 @@ class CsvParser {
 
     // Senses
     'sense_de': 'sense_de',
+    'senses': 'sense_de',
+    'sense': 'sense_de',
     'definition_de': 'sense_de',
     'definition': 'sense_de',
     'bedeutung': 'sense_de',

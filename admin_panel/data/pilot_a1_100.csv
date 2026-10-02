@@ -1,0 +1,101 @@
+﻿lemma,article,pos,plural,cefr,topic,english,urdu,farsi,arabic,senses,synonyms,example_german,example_english,status,source
+Tisch,der,noun,Tische,A1,furniture,table,میز,میز,طاولة,Möbelstück mit Platte und Beinen,Esstisch,Der Tisch ist aus Holz.,The table is made of wood.,draft,ORIGINAL_CURATED
+Stuhl,der,noun,Stühle,A1,furniture,chair,کرسی,صندلی,كرسي,Sitzmöbel für eine Person,Sessel,Bitte nimm auf dem Stuhl Platz.,Please take a seat on the chair.,draft,ORIGINAL_CURATED
+Bett,das,noun,Betten,A1,furniture,bed,بستر,تختخواب,سرير,Möbel zum Schlafen,Schlafstätte,Das Bett im Schlafzimmer ist sehr bequem.,The bed in the bedroom is very comfortable.,draft,ORIGINAL_CURATED
+Schrank,der,noun,Schränke,A1,furniture,wardrobe / cupboard,الماری,کمد,خزانة,Möbelstück zum Aufbewahren von Kleidung oder Dingen,Kasten,Die Kleider hängen im Schrank.,The clothes are hanging in the wardrobe.,draft,ORIGINAL_CURATED
+Lampe,die,noun,Lampen,A1,home,lamp / light,لیمپ,چراغ,مصباح,Lichtquelle im Zimmer,Leuchte,Die Lampe auf dem Schreibtisch ist hell.,The lamp on the desk is bright.,draft,ORIGINAL_CURATED
+Haus,das,noun,Häuser,A1,home,house / home,گھر,خانه,منزل,Gebäude zum Wohnen,Gebäude,Das Haus hat einen schönen Garten.,The house has a beautiful garden.,draft,ORIGINAL_CURATED
+Wohnung,die,noun,Wohnungen,A1,home,apartment / flat,اپارٹمنٹ,آپارتمان,شقة,Räume zum Wohnen in einem Gebäude,Appartement,Unsere neue Wohnung hat drei Zimmer.,Our new apartment has three rooms.,draft,ORIGINAL_CURATED
+Zimmer,das,noun,Zimmer,A1,home,room,کمرہ,اتاق,غرفة,Teil einer Wohnung,Raum,Mein Zimmer ist hell und ruhig.,My room is bright and quiet.,draft,ORIGINAL_CURATED
+Küche,die,noun,Küchen,A1,home,kitchen,باورچی خانہ,آشپزخانه,مطبخ,Raum zum Kochen,,Wir kochen das Abendessen in der Küche.,We cook dinner in the kitchen.,draft,ORIGINAL_CURATED
+Fenster,das,noun,Fenster,A1,home,window,کھڑکی,پنجره,نافذة,Öffnung in der Wand für Licht und Luft,,Bitte öffne das Fenster.,Please open the window.,draft,ORIGINAL_CURATED
+Tür,die,noun,Türen,A1,home,door,دروازہ,درب,باب,Eingang zu einem Raum oder Haus,Pforte,Schließe bitte die Tür leise.,Please close the door quietly.,draft,ORIGINAL_CURATED
+Vater,der,noun,Väter,A1,family,father,والد,پدر,أب,männlicher Elternteil,Papa,Mein Vater arbeitet als Lehrer.,My father works as a teacher.,draft,ORIGINAL_CURATED
+Mutter,die,noun,Mütter,A1,family,mother,والدہ,مادر,أم,weiblicher Elternteil,Mama,Meine Mutter liest gerne Bücher.,My mother likes reading books.,draft,ORIGINAL_CURATED
+Kind,das,noun,Kinder,A1,family,child,بچہ,کودک,طفل,junger Mensch oder Nachkomme,Nachkomme,Das Kind spielt draußen im Park.,The child is playing outside in the park.,draft,ORIGINAL_CURATED
+Sohn,der,noun,Söhne,A1,family,son,بیٹا,پسر,ابن,männliches Kind der Eltern,,Ihr Sohn geht schon in die Schule.,Her son already goes to school.,draft,ORIGINAL_CURATED
+Tochter,die,noun,Töchter,A1,family,daughter,بیٹی,دختر,ابنة,weibliches Kind der Eltern,,Unsere Tochter lernt fleißig Deutsch.,Our daughter studies German diligently.,draft,ORIGINAL_CURATED
+Bruder,der,noun,Brüder,A1,family,brother,بھائی,برادر,أخ,männliches Geschwisterteil,,Mein Bruder wohnt in Berlin.,My brother lives in Berlin.,draft,ORIGINAL_CURATED
+Schwester,die,noun,Schwestern,A1,family,sister,بہن,خواهر,أخت,weibliches Geschwisterteil,,Seine Schwester studiert Medizin.,His sister studies medicine.,draft,ORIGINAL_CURATED
+Freund,der,noun,Freunde,A1,people,friend,دوست,دوست,صديق,nahestehende befreundete Person,Kumpel,Ein guter Freund hilft immer.,A good friend always helps.,draft,ORIGINAL_CURATED
+Mann,der,noun,Männer,A1,people,man / husband,آدمی / شوہر,مرد / همسر,رجل / زوج,erwachsene männliche Person,Herr,Der Mann wartet an der Haltestelle.,The man is waiting at the bus stop.,draft,ORIGINAL_CURATED
+Frau,die,noun,Frauen,A1,people,woman / wife,عورت / بیوی,زن / همسر,امرأة / زوجة,erwachsene weibliche Person,Dame,Die Frau spricht drei Sprachen.,The woman speaks three languages.,draft,ORIGINAL_CURATED
+Brot,das,noun,Brote,A1,food,bread,روٹی,نان,خبز,gebackenes Nahrungsmittel aus Getreide,Laib,Ich kaufe jeden Morgen frisches Brot.,I buy fresh bread every morning.,draft,ORIGINAL_CURATED
+Apfel,der,noun,Äpfel,A1,food,apple,سیب,سیب,تفاحة,runde Frucht eines Obstbaumes,,Der rote Apfel schmeckt süß.,The red apple tastes sweet.,draft,ORIGINAL_CURATED
+Wasser,das,noun,Wasser,A1,drinks,water,پانی,آب,ماء,klare Flüssigkeit zum Trinken,,Ein Glas Wasser bitte.,"A glass of water, please.",draft,ORIGINAL_CURATED
+Milch,die,noun,Milch,A1,drinks,milk,دودھ,شیر,حليب,weiße Trinkflüssigkeit,,Trinkst du Kaffee mit Milch?,Do you drink coffee with milk?,draft,ORIGINAL_CURATED
+Kaffee,der,noun,Kaffees,A1,drinks,coffee,کافی,قهوه,قهوة,heißes Bohnengetränk,,Er trinkt morgens eine Tasse Kaffee.,He drinks a cup of coffee in the morning.,draft,ORIGINAL_CURATED
+Tee,der,noun,Tees,A1,drinks,tea,چائے,چای,شاي,Heißgetränk aus getrockneten Blättern,,Im Winter trinke ich heißen Tee.,In winter I drink hot tea.,draft,ORIGINAL_CURATED
+Käse,der,noun,Käse,A1,food,cheese,پنیر,پنیر,جبن,festes Milcherzeugnis,,Zum Frühstück esse ich gerne Käse.,For breakfast I like eating cheese.,draft,ORIGINAL_CURATED
+Ei,das,noun,Eier,A1,food,egg,انڈا,تخم مرغ,بيضة,Hühnerei zum Kochen oder Backen,,Sie kocht ein Ei zum Frühstück.,She boils an egg for breakfast.,draft,ORIGINAL_CURATED
+Tag,der,noun,Tage,A1,time,day,دن,روز,يوم,Zeitraum von 24 Stunden,Kalendertag,"Guten Tag, wie geht es Ihnen?","Good day, how are you?",draft,ORIGINAL_CURATED
+Woche,die,noun,Wochen,A1,time,week,ہفتہ,هفته,أسبوع,Zeitraum von sieben Tagen,,Die Woche hat sieben Tage.,The week has seven days.,draft,ORIGINAL_CURATED
+Monat,der,noun,Monate,A1,time,month,مہینہ,ماه,شهر,Teil eines Jahres aus etwa 30 Tagen,,Im nächsten Monat reisen wir nach Wien.,Next month we are traveling to Vienna.,draft,ORIGINAL_CURATED
+Jahr,das,noun,Jahre,A1,time,year,سال,سال,سنة,Zeitraum von 365 Tagen,,Er lernt seit einem Jahr Deutsch.,He has been learning German for one year.,draft,ORIGINAL_CURATED
+Uhr,die,noun,Uhren,A1,time,clock / watch / o'clock,گھڑی / بجے,ساعت,ساعة,Zeitmessgerät oder Uhrzeitangabe,,Der Unterricht beginnt um acht Uhr.,The lesson begins at eight o'clock.,draft,ORIGINAL_CURATED
+Schule,die,noun,Schulen,A1,school,school,اسکول,مدرسه,مدرسة,Bildungsstätte für Kinder und Jugendliche,Lehranstalt,Die Kinder gehen gerne in die Schule.,The children like going to school.,draft,ORIGINAL_CURATED
+Buch,das,noun,Bücher,A1,school,book,کتاب,کتاب,كتاب,gedrucktes oder gebundenes Lesewerk,Band,Dieses Buch ist sehr interessant.,This book is very interesting.,draft,ORIGINAL_CURATED
+Arbeit,die,noun,Arbeiten,A1,work,work / job,کام / ملازمت,کار,عمل / وظيفة,berufliche Tätigkeit,Beruf,Nach der Arbeit treffe ich meine Freunde.,After work I meet my friends.,draft,ORIGINAL_CURATED
+Stadt,die,noun,Städte,A1,city,city / town,شہر,شهر,مدينة,größere geschlossene Ortschaft,Großstadt,München ist eine schöne Stadt.,Munich is a beautiful city.,draft,ORIGINAL_CURATED
+Auto,das,noun,Autos,A1,transport,car,گاڑی / کار,خودرو / ماشین,سيارة,Kraftfahrzeug zur Personenbeförderung,Wagen,Er fährt jeden Tag mit dem Auto zur Arbeit.,He drives to work by car every day.,draft,ORIGINAL_CURATED
+Bank,die,noun,Banken,A1,finance,bank / bench,بینک / بنچ,بانک / نیمکت,بنك / مقعد,"Finanzinstitut / Geldinstitut [finance]; Sitzgelegenheit im Park oder Freien [public]","Geldinstitut; Sitzbank",Ich muss heute noch zur Bank gehen.,I still have to go to the bank today.,draft,ORIGINAL_CURATED
+sein,,verb,,A1,basic,to be,ہونا,بودن,كان,existieren oder Zustand beschreiben,existieren,Ich bin Student an der Universität.,I am a student at the university.,draft,ORIGINAL_CURATED
+haben,,verb,,A1,basic,to have,رکھنا / پاس ہونا,داشتن,يملك / عنده,besitzen oder verfügen über,besitzen,Wir haben heute Zeit für einen Spaziergang.,We have time for a walk today.,draft,ORIGINAL_CURATED
+gehen,,verb,,A1,motion,to go / to walk,جانا,رفتن,ذهب / يذهب,sich zu Fuß fortbewegen,laufen,Wir gehen am Abend ins Kino.,We are going to the cinema this evening.,draft,ORIGINAL_CURATED
+kommen,,verb,,A1,motion,to come,آنا,آمدن,أتى / يأتي,an einem Ort eintreffen,eintreffen,Woher kommst du?,Where do you come from?,draft,ORIGINAL_CURATED
+machen,,verb,,A1,activity,to make / to do,کرنا / بنانا,کردن / ساختن,فعل / صنع,eine Handlung oder Sache ausführen,tun,Was machst du am Wochenende?,What are you doing at the weekend?,draft,ORIGINAL_CURATED
+lernen,,verb,,A1,education,to learn / to study,سیکھنا,یاد گرفتن,تعلم / يتعلم,sich neues Wissen aneignen,studieren,Ich lerne jeden Tag neue deutsche Wörter.,I learn new German words every day.,draft,ORIGINAL_CURATED
+sprechen,,verb,,A1,communication,to speak / to talk,بولنا,صحبت کردن,تكلم / يتكلم,Worte mit der Stimme äußern,reden,Sie spricht Deutsch und Englisch fließend.,She speaks German and English fluently.,draft,ORIGINAL_CURATED
+lesen,,verb,,A1,activity,to read,پڑھنا,خواندن,قرأ / يقرأ,geschriebenen Text erfassen,,Er liest am Abend die Zeitung.,He reads the newspaper in the evening.,draft,ORIGINAL_CURATED
+schreiben,,verb,,A1,communication,to write,لکھنا,نوشتن,كتب / يكتب,Text mit Stift oder Tastatur verfassen,verfassen,Ich schreibe eine E-Mail an meine Kollegin.,I am writing an email to my colleague.,draft,ORIGINAL_CURATED
+wohnen,,verb,,A1,home,to live / to reside,رہنا,زندگی کردن,سكن / يسكن,einen festen Wohnsitz haben,leben,Wir wohnen seit zwei Jahren in Hamburg.,We have been living in Hamburg for two years.,draft,ORIGINAL_CURATED
+arbeiten,,verb,,A1,work,to work,کام کرنا,کار کردن,عمل / يعمل,eine berufliche Tätigkeit ausüben,tätig sein,Sie arbeitet in einem internationalen Unternehmen.,She works in an international company.,draft,ORIGINAL_CURATED
+essen,,verb,,A1,food,to eat,کھانا,خوردن,أكل / يأكل,feste Nahrung aufnehmen,speisen,Mittags essen wir zusammen in der Kantine.,At noon we eat together in the canteen.,draft,ORIGINAL_CURATED
+trinken,,verb,,A1,drinks,to drink,پینا,نوشیدن,شرب / يشرب,Flüssigkeit zu sich nehmen,,Ich trinke täglich zwei Liter Wasser.,I drink two liters of water daily.,draft,ORIGINAL_CURATED
+schlafen,,verb,,A1,health,to sleep,سونا,خوابیدن,نام / ينام,sich im Ruhezustand befinden,ruhen,Das Baby schläft ruhig in seinem Bett.,The baby sleeps quietly in its bed.,draft,ORIGINAL_CURATED
+sehen,,verb,,A1,perception,to see / to watch,دیکھنا,دیدن,رأى / يرى,mit den Augen wahrnehmen,erblicken,Wir sehen heute Abend einen spannenden Film.,We are watching an exciting movie tonight.,draft,ORIGINAL_CURATED
+hören,,verb,,A1,perception,to hear / to listen,سننا,شنیدن,سمع / يستمع,mit den Ohren wahrnehmen,lauschen,Ich höre beim Lernen gerne Musik.,I like listening to music while studying.,draft,ORIGINAL_CURATED
+kaufen,,verb,,A1,shopping,to buy / to purchase,خریدنا,خریدن,اشترى / يشتري,gegen Geld erwerben,erwerben,Er kauft im Supermarkt frisches Gemüse.,He buys fresh vegetables in the supermarket.,draft,ORIGINAL_CURATED
+fahren,,verb,,A1,transport,to drive / to ride,گاڑی چلانا / سفر کرنا,رانندگی کردن / رفتن,قاد / سافر,sich mit einem Fahrzeug fortbewegen,reisen,Wir fahren am Samstag mit dem Zug nach Köln.,We are taking the train to Cologne on Saturday.,draft,ORIGINAL_CURATED
+spielen,,verb,,A1,leisure,to play,کھیلنا,بازی کردن,لعب / يلعب,sich spielerisch beschäftigen,,Die Kinder spielen friedlich im Garten.,The children play peacefully in the garden.,draft,ORIGINAL_CURATED
+verstehen,,verb,,A1,mental,to understand,سمجھنا,فهمیدن,فهم / يفهم,den Sinn von etwas erfassen,begreifen,Ich verstehe den Satz leider nicht.,"Unfortunately, I do not understand the sentence.",draft,ORIGINAL_CURATED
+fragen,,verb,,A1,communication,to ask,پوچھنا,پرسیدن,سأل / يسأل,eine Auskunft erbitten,erkundigen,Darf ich Sie etwas fragen?,May I ask you something?,draft,ORIGINAL_CURATED
+antworten,,verb,,A1,communication,to answer / to reply,جواب دینا,پاسخ دادن,أجاب / يجيب,auf eine Frage eine Antwort geben,erwidern,Der Lehrer antwortet geduldig auf jede Frage.,The teacher answers every question patiently.,draft,ORIGINAL_CURATED
+suchen,,verb,,A1,activity,to search / to look for,تلاش کرنا / ڈھونڈنا,جستجو کردن,بحث / يبحث,nach etwas Ausschau halten,,Ich suche meinen Schlüssel in der Tasche.,I am looking for my key in the bag.,draft,ORIGINAL_CURATED
+finden,,verb,,A1,activity,to find,پانا / ملنا,پیدا کردن,وجد / يجد,etwas Gesuchtes entdecken oder erhalten,entdecken,Endlich habe ich meine Brille gefunden.,Finally I found my glasses.,draft,ORIGINAL_CURATED
+sich freuen,,verb,,A1,emotion,to be pleased / to look forward,خوش ہونا,خوشحال شدن,فرح / ابتهج,Freude empfinden oder erwarten,,Ich freue mich auf das Wochenende.,I am looking forward to the weekend.,draft,ORIGINAL_CURATED
+gut,,adjective,,A1,quality,good,اچھا,خوب,جيد,von hoher Qualität oder erfreulich,,Das Essen im Restaurant schmeckt sehr gut.,The food in the restaurant tastes very good.,draft,ORIGINAL_CURATED
+schlecht,,adjective,,A1,quality,bad / poor,برا / خراب,بد,سيئ,von geringer Qualität oder unerfreulich,mangelhaft,Bei schlechtem Wetter bleiben wir zu Hause.,In bad weather we stay at home.,draft,ORIGINAL_CURATED
+groß,,adjective,,A1,size,big / tall / large,بڑا,بزرگ,كبير,von bedeutendem Ausmaß,riesig,Unser Wohnzimmer ist hell und sehr groß.,Our living room is bright and very big.,draft,ORIGINAL_CURATED
+klein,,adjective,,A1,size,small / little,چھوٹا,کوچک,صغير,von geringer Größe oder Bedeutung,winzig,Das kleine Kätzchen schläft im Körbchen.,The small kitten sleeps in the basket.,draft,ORIGINAL_CURATED
+neu,,adjective,,A1,age,new,نیا,نو / جدید,جديد,vor kurzem hergestellt oder begonnen,modern,Mein neues Fahrrad ist blau.,My new bicycle is blue.,draft,ORIGINAL_CURATED
+alt,,adjective,,A1,age,old,پرانا / بوڑھا,کهنه / مسن,قديم / مسن,seit langer Zeit bestehend oder lebend,antik,Die alte Kirche steht im Zentrum der Stadt.,The old church stands in the center of the city.,draft,ORIGINAL_CURATED
+schnell,,adjective,,A1,speed,fast / quick,تیز,سریع,سريع,mit hoher Geschwindigkeit,rasch,Der Schnellzug fährt pünktlich ab.,The fast train departs on time.,draft,ORIGINAL_CURATED
+langsam,,adjective,,A1,speed,slow,آہستہ,آهسته,بطيء,mit geringer Geschwindigkeit,,Bitte sprich etwas langsamer.,Please speak a bit slower.,draft,ORIGINAL_CURATED
+schön,,adjective,,A1,appearance,beautiful / nice,خوبصورت,زیبا,جميل,optisch ansprechend und angenehm,hübsch,Wir wünschen Ihnen einen schönen Tag.,We wish you a nice day.,draft,ORIGINAL_CURATED
+warm,,adjective,,A1,weather,warm,گرم,گرم,دافئ,von angenehm hoher Temperatur,,Im Sommer ist das Wasser angenehm warm.,In summer the water is pleasantly warm.,draft,ORIGINAL_CURATED
+kalt,,adjective,,A1,weather,cold,ٹھنڈا,سرد,بارد,von niedriger Temperatur,frostig,Im Winter ist es draußen sehr kalt.,In winter it is very cold outside.,draft,ORIGINAL_CURATED
+teuer,,adjective,,A1,cost,expensive,مہنگا,گران,غالٍ,einen hohen Geldpreis fordernd,kostspielig,Das Hotelzimmer im Zentrum war leider zu teuer.,The hotel room in the center was unfortunately too expensive.,draft,ORIGINAL_CURATED
+billig,,adjective,,A1,cost,cheap / inexpensive,سستا,ارزان,رخيص,von geringem Geldpreis,preiswert,Obst auf dem Wochenmarkt ist frisch und billig.,Fruit at the weekly market is fresh and cheap.,draft,ORIGINAL_CURATED
+einfach,,adjective,,A1,difficulty,simple / easy,آسان / سادہ,ساده / آسان,بسيط / سهل,ohne Schwierigkeit verständlich,leicht,Diese Deutschübung ist wirklich einfach.,This German exercise is really simple.,draft,ORIGINAL_CURATED
+schwer,,adjective,,A1,difficulty,heavy / difficult,بھاری / مشکل,سنگین / سخت,ثقيل / صعب,von hohem Gewicht oder schwer verständlich,schwierig,Der Koffer ist zu schwer zum Tragen.,The suitcase is too heavy to carry.,draft,ORIGINAL_CURATED
+richtig,,adjective,,A1,truth,correct / right,صحیح / درست,درست,صحيح,den Tatsachen oder Regeln entsprechend,korrekt,Seine Antwort auf die Frage war völlig richtig.,His answer to the question was completely correct.,draft,ORIGINAL_CURATED
+falsch,,adjective,,A1,truth,wrong / false,غلط,نادرست,خاطئ,nicht zutreffend oder fehlerhaft,inkorrekt,Diese Telefonnummer ist leider falsch.,This telephone number is unfortunately wrong.,draft,ORIGINAL_CURATED
+früh,,adjective,,A1,time,early,جلدی,زود,مبكر,am Beginn eines Zeitabschnitts,zeitig,Ich muss morgen früh aufstehen.,I have to get up early tomorrow.,draft,ORIGINAL_CURATED
+spät,,adjective,,A1,time,late,دیر,دیر,متأخر,gegen Ende eines Zeitabschnitts,,"Es ist schon spät, wir sollten schlafen gehen.","It is already late, we should go to sleep.",draft,ORIGINAL_CURATED
+müde,,adjective,,A1,health,tired / sleepy,تھکا ہوا,خسته,متعب,Erholung oder Schlaf benötigend,erschöpft,Nach dem langen Arbeitstag bin ich sehr müde.,After the long workday I am very tired.,draft,ORIGINAL_CURATED
+heute,,adverb,,A1,time,today,آج,امروز,اليوم,am gegenwärtigen Tag,,Heute scheint die Sonne den ganzen Tag.,Today the sun is shining all day.,draft,ORIGINAL_CURATED
+morgen,,adverb,,A1,time,tomorrow,کل,فردا,غداً,am Tag nach dem heutigen,,Morgen habe ich einen Deutschkurs.,Tomorrow I have a German course.,draft,ORIGINAL_CURATED
+gestern,,adverb,,A1,time,yesterday,کل,دیروز,أمس,am Tag vor dem heutigen,,Gestern waren wir im Museum.,Yesterday we were at the museum.,draft,ORIGINAL_CURATED
+hier,,adverb,,A1,place,here,یہاں,اینجا,هنا,an diesem Ort,anwesend,Hier kann man gut essen.,Here one can eat well.,draft,ORIGINAL_CURATED
+dort,,adverb,,A1,place,there,وہاں,آنجا,هناك,an jenem entfernten Ort,drüben,Dort drüben ist der Bahnhof.,Over there is the train station.,draft,ORIGINAL_CURATED
+oft,,adverb,,A1,frequency,often / frequently,اکثر,اغلب,غالباً,zu vielen Zeitpunkten wiederholt,häufig,Wir gehen oft im Park spazieren.,We often go for a walk in the park.,draft,ORIGINAL_CURATED
+immer,,adverb,,A1,frequency,always,ہمیشہ,همیشه,دائماً,zu allen Zeiten ohne Ausnahme,stets,Sie kommt immer pünktlich zum Unterricht.,She always comes on time to class.,draft,ORIGINAL_CURATED
+jetzt,,adverb,,A1,time,now,ابھی,اکنون,الآن,im gegenwärtigen Augenblick,nun,Jetzt machen wir eine Pause.,Now we are taking a break.,draft,ORIGINAL_CURATED
+zusammen,,adverb,,A1,manner,together,ایک ساتھ,با هم,معاً,gemeinsam mit anderen Personen,gemeinsam,Wir lernen zusammen für die Prüfung.,We study together for the exam.,draft,ORIGINAL_CURATED
+gern,,adverb,,A1,manner,gladly / with pleasure,شوق سے,با کمال میل,بسرور,mit Vergnügen oder Freude,gerne,Ich trinke am Morgen gern Saft.,I gladly drink juice in the morning.,draft,ORIGINAL_CURATED
+ich,,pronoun,,A1,people,I,میں,من,أنا,Personalpronomen der 1. Person Singular,,Ich heiße Markus und komme aus Köln.,My name is Markus and I come from Cologne.,draft,ORIGINAL_CURATED
+wir,,pronoun,,A1,people,we,ہم,ما,نحن,Personalpronomen der 1. Person Plural,,Wir lernen gemeinsam Deutsch.,We are learning German together.,draft,ORIGINAL_CURATED
+in,,preposition,,A1,place,in / into,میں,در,في,räumliche oder zeitliche Präposition,innerhalb,Meine Familie wohnt in Berlin.,My family lives in Berlin.,draft,ORIGINAL_CURATED
+mit,,preposition,,A1,manner,with,کے ساتھ,با,مع,Präposition der Begleitung oder des Mittels,,Ich fahre mit dem Bus zur Arbeit.,I go to work by bus.,draft,ORIGINAL_CURATED
+und,,conjunction,,A1,basic,and,اور,و,و,verbindende Konjunktion,sowie,Kaffee und Tee schmecken mir gut.,Coffee and tea taste good to me.,draft,ORIGINAL_CURATED
